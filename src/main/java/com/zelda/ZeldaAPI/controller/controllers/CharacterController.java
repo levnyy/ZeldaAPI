@@ -2,7 +2,7 @@ package com.zelda.ZeldaAPI.controller.controllers;
 
 import com.zelda.ZeldaAPI.controller.service.CharacterService;
 import com.zelda.ZeldaAPI.model.Bosses;
-import com.zelda.ZeldaAPI.model.Character;
+import com.zelda.ZeldaAPI.model.Location;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,9 +26,8 @@ public class CharacterController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found");
         }
     }
-
     @GetMapping
-    public Character findByName(String name) {
+    public Iterable<Character> findByName(String name) {
         try {
             if (!name.isEmpty())
                 return characterService.findByName(name);
@@ -39,25 +38,22 @@ public class CharacterController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
         }
     }
-
     @GetMapping
-    public Bosses findByGender(String gender) {
+    public Iterable<Character> findByGender(String gender) {
         try {
             return characterService.findByGender(gender);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
         }
     }
-
     @GetMapping
-    public Bosses findByRace(String race) {
+    public Iterable<Character> findByRace(String race) {
         try {
             return characterService.findByRace(race);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
         }
     }
-
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void update(@RequestBody @Valid Character character) {

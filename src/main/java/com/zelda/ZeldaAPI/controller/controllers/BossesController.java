@@ -26,7 +26,7 @@ public class BossesController {
         }
     }
 @PutMapping
-    public Bosses findByName(String name) {
+    public Iterable<Bosses> findByName(String name) {
         try {
             if (!name.isEmpty())
             return  bossesService.findByName(name);
@@ -38,7 +38,7 @@ public class BossesController {
         }
     }
     @PutMapping
-    public Bosses findByHealth(Integer health) {
+    public Iterable<Bosses> findByHealth(Integer health) {
         try {
             return  bossesService.findByHealth(health);
         }catch (EntityNotFoundException e) {
@@ -46,15 +46,13 @@ public class BossesController {
         }
     }
     @PutMapping
-    public Bosses findByHealth(Integer weakness) {
+    public Iterable<Bosses> findByWeakness(Integer weakness) {
         try {
-            return  bossesService.findByWeakness(weakness);
+            return bossesService.findByWeakness(weakness);
         }catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Boss not found");
         }
     }
-
-
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void update(@RequestBody @Valid Bosses bosses) {
