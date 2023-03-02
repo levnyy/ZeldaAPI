@@ -9,7 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-
+@RequestMapping("/creatures")
+@RestController
 public class CreaturesController {
     private final CreaturesService creaturesService;
 
@@ -18,12 +19,12 @@ public class CreaturesController {
     }
 
     @GetMapping(path = "{id}")
-    public Creatures findById(@PathVariable(value = "id", required = true) Integer ID) {
+    public Creatures findById(@PathVariable(value = "id", required = true) Integer id) {
         try {
-            return creaturesService.findById(ID);
+            return creaturesService.findById(id);
 
         } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "id not found");
         }
     }
 
@@ -39,22 +40,12 @@ public class CreaturesController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
         }
     }
-
-    @GetMapping
-    public Iterable<Creatures> findByUse(String use) {
-        try {
-            return creaturesService.findByUse(use);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
-        }
-    }
-
     @GetMapping
     public Iterable<Creatures> findByStrength(Integer strength) {
         try {
             return creaturesService.findByStrength(strength);
         } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Strenght not found");
         }
     }
 
@@ -63,7 +54,7 @@ public class CreaturesController {
         try {
             return creaturesService.findByDurability(durability);
         } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Durability not found");
         }
     }
 
@@ -74,9 +65,17 @@ public class CreaturesController {
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found");
         }
-        return null;
+        return findByLocation(location);
     }
-
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void insert(@RequestBody @Valid Creatures creatures) {
+        try {
+            creaturesService.insert(creatures);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item cannot be inserted");
+        }
+    }
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void update(@RequestBody @Valid Creatures creatures) {
@@ -88,9 +87,9 @@ public class CreaturesController {
     }
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void delete(@PathVariable(value = "id", required = true) Integer  ID) {
+    public void delete(@PathVariable(value = "id", required = true) Integer  id) {
         try {
-            creaturesService.deleteById(ID);
+            creaturesService.deleteById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item cannot be deleted");
         }

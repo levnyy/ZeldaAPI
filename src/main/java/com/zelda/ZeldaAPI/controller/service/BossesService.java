@@ -18,8 +18,8 @@ public class BossesService {
     public Iterable<Bosses> findAll() {
         return bossesRepository.findAll();
     }
-    public Bosses findById(Integer ID) {
-        Optional<Bosses> bosses = bossesRepository.findById(ID);
+    public Bosses findById(Integer id) {
+        Optional<Bosses> bosses = bossesRepository.findById(id);
         return bosses.orElseThrow(EntityNotFoundException::new);
     }
     public Iterable<Bosses> findByName (String name){
@@ -30,6 +30,9 @@ public class BossesService {
     }
     public Iterable<Bosses> findByWeakness (Integer weakness) {
             return bossesRepository.findByWeakness(weakness);
+    }
+    public void insert ( Bosses bosses){
+        bossesRepository.save(bosses);
     }
     public void  update (Bosses bosses){
         bossesRepository.save(bosses);

@@ -1,7 +1,7 @@
 package com.zelda.ZeldaAPI.controller.service;
 
 import com.zelda.ZeldaAPI.controller.repository.CharacterRepository;
-import com.zelda.ZeldaAPI.model.Location;
+import com.zelda.ZeldaAPI.model.Character;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +17,8 @@ public class CharacterService {
     public Iterable<Character> findAll() {
         return characterRepository.findAll();
     }
-    public Character findById(Integer ID) {
-        Optional<Location> character = bossesRepository.findById(ID);
+    public Character findById(Integer id) {
+        Optional<Character> character = characterRepository.findById(id);
         return character.orElseThrow(EntityNotFoundException::new);
     }
     public Iterable<Character> findByName (String name){
@@ -30,10 +30,13 @@ public class CharacterService {
     public Iterable<Character> findByRace(String race) {
         return characterRepository.findByRace(race);
     }
+    public void insert (Character character){
+        characterRepository.save(character);
+    }
     public void  update (Character character){
         characterRepository.save(character);
     }
-    public void  deleteById (Integer ID){
-        characterRepository.deleteById(ID);
+    public void  deleteById (Integer id){
+        characterRepository.deleteById(id);
     }
 }

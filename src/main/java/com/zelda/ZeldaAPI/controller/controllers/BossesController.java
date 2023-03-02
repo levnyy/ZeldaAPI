@@ -8,7 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-
+@RequestMapping("/bosses")
+@RestController
 public class BossesController {
     private final BossesService bossesService;
 
@@ -17,9 +18,9 @@ public class BossesController {
     }
 
     @GetMapping(path = "{id}")
-    public Bosses findById(@PathVariable(value = "id", required = true) Integer ID) {
+    public Bosses findById(@PathVariable(value = "id", required = true) Integer id) {
         try {
-            return bossesService.findById(ID);
+            return bossesService.findById(id);
 
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found");
@@ -42,7 +43,7 @@ public class BossesController {
         try {
             return  bossesService.findByHealth(health);
         }catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Boss not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Health not found");
         }
     }
     @PutMapping
@@ -50,7 +51,16 @@ public class BossesController {
         try {
             return bossesService.findByWeakness(weakness);
         }catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Boss not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Weakness not found");
+        }
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void insert(@RequestBody @Valid Bosses bosses) {
+        try {
+            bossesService.insert(bosses);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item cannot be inserted");
         }
     }
     @PutMapping

@@ -8,7 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-
+@RequestMapping("/locations")
+@RestController
 public class LocationController {
     private final LocationService locationService;
 
@@ -16,9 +17,9 @@ public class LocationController {
         this.locationService = locationService;
     }
     @GetMapping(path = "{id}")
-    public Location findById(@PathVariable(value = "id", required = true) Integer ID) {
+    public Location findById(@PathVariable(value = "id", required = true) Integer id) {
         try {
-            return locationService.findById(ID);
+            return locationService.findById(id);
 
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID not found");
@@ -41,7 +42,16 @@ public class LocationController {
         try {
             return locationService.findByReward(reward);
         } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reward not found");
+        }
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void insert(@RequestBody @Valid Location location) {
+        try {
+            locationService.insert(location);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item cannot be inserted");
         }
     }
     @PutMapping
@@ -54,10 +64,10 @@ public class LocationController {
         }
     }
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void delete(@PathVariable(value = "id", required = true) Integer  ID) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void delete(@PathVariable(value = "id", required = true) Integer  id) {
         try {
-            locationService.deleteById(ID);
+            locationService.deleteById(id);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item cannot be deleted");
         }

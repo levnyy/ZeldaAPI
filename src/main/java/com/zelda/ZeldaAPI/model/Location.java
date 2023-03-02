@@ -1,34 +1,33 @@
 package com.zelda.ZeldaAPI.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Location {
-    private Integer id_character;
+    @Id
+    private Integer id_location;
 
     private String name;
 
-    private String gender;
+    private String rewards;
 
-    public Integer getId_character() {
-        return id_character;
+    public Integer getId_location() {
+        return id_location;
     }
-
-    public void setId_character(Integer id_character) {
-        this.id_character = id_character;
+    public void setId_location(Integer id_location) {
+        this.id_location = id_location;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getGender() {
-        return gender;
+    public String getRewards() {
+        return rewards;
     }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setRewards(String rewards) {
+        this.rewards = rewards;
     }
 }
