@@ -19,7 +19,7 @@ public class LocationController {
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
     }
-    @Operation(summary = "Find location by ID", description = "Returns the location with the specified ID")
+    @Operation(summary = "Find location by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved location"),
             @ApiResponse(responseCode = "404", description = "Location not found")
@@ -53,7 +53,7 @@ public class LocationController {
         }
     }
 
-    @Operation(summary = "Find locations by reward", description = "Returns a list of locations that offer the given reward")
+    @Operation(summary = "Find locations by reward")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list of locations"),
             @ApiResponse(responseCode = "404", description = "Reward not found")
@@ -68,7 +68,7 @@ public class LocationController {
         }
     }
 
-    @Operation(summary = "Insert a new location", description = "Inserts a new location into the database")
+    @Operation(summary = "Insert a new location")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Location successfully inserted"),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
@@ -85,7 +85,7 @@ public class LocationController {
         }
     }
 
-    @Operation(summary = "Update an existing location", description = "Updates an existing location in the database")
+    @Operation(summary = "Update an existing location")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Location successfully updated"),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
@@ -102,7 +102,7 @@ public class LocationController {
         }
     }
 
-    @Operation(summary = "Delete a location", description = "Deletes a location with the given ID from the database")
+    @Operation(summary = "Delete a location")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "Location successfully deleted"),
             @ApiResponse(responseCode = "404", description = "Location not found")
