@@ -1,7 +1,7 @@
 package com.zelda.ZeldaAPI.model;
 
 
-public class Character {
+public class Location {
     private Integer id_character;
 
     private String name;
