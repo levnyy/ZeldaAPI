@@ -1,9 +1,12 @@
 package com.zelda.ZeldaAPI.controller.controllers;
 
 import com.zelda.ZeldaAPI.controller.service.CreaturesService;
+import com.zelda.ZeldaAPI.model.Bosses;
 import com.zelda.ZeldaAPI.model.Location;
 import com.zelda.ZeldaAPI.model.Creatures;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
@@ -97,7 +100,8 @@ public class CreaturesController {
     }
     @Operation(summary = "Insert a new creature", description = "Inserts a new creature into the database")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Creature successfully inserted"),
+            @ApiResponse(responseCode = "200", description = "Creature successfully inserted", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
             @ApiResponse(responseCode = "404", description = "Insertion failed")
     })
@@ -112,7 +116,8 @@ public class CreaturesController {
     }
     @Operation(summary = "Update an existing creature", description = "Updates an existing creature in the database")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Creature successfully updated"),
+            @ApiResponse(responseCode = "200", description = "Creature successfully updated", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
             @ApiResponse(responseCode = "404", description = "Creature not found")
     })
@@ -127,7 +132,8 @@ public class CreaturesController {
     }
     @Operation(summary = "Delete creature by ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Successfully deleted creature"),
+            @ApiResponse(responseCode = "201", description = "Successfully deleted creature", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Creature not found")
     })
     @DeleteMapping("{id}")

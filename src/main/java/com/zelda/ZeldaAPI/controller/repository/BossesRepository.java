@@ -15,5 +15,5 @@ public interface BossesRepository extends CrudRepository<Bosses, Integer> {
     Iterable<Bosses> findByHealth(@Param("health") Integer health);
 
     @Query("SELECT b FROM Bosses b WHERE b.name LIKE CONCAT('%', :weakness, '%')")
-    Iterable<Bosses> findByWeakness(@Param("health") Integer weakness);
+    Iterable<Bosses> findByWeakness(@Param("weakness") Integer weakness);
 }

@@ -1,16 +1,19 @@
 package com.zelda.ZeldaAPI.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Bosses {
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_bosses;
-
+    @NotNull
     private String name;
-
+    @NotNull
     private Integer health;
 
     private String weakness;

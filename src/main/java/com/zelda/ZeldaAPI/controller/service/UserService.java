@@ -1,6 +1,6 @@
 package com.zelda.ZeldaAPI.controller.service;
 import com.zelda.ZeldaAPI.controller.repository.UserRepository;
-import org.apache.catalina.User;
+import com.zelda.ZeldaAPI.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

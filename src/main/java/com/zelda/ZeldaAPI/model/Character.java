@@ -2,12 +2,13 @@ package com.zelda.ZeldaAPI.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Character {
     @Id
     private Integer id_character;
-
+    @NotNull
     private String name;
 
     private String gender;

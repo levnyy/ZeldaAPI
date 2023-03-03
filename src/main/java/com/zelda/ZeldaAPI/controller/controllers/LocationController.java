@@ -1,8 +1,11 @@
 package com.zelda.ZeldaAPI.controller.controllers;
 
 import com.zelda.ZeldaAPI.controller.service.LocationService;
+import com.zelda.ZeldaAPI.model.Bosses;
 import com.zelda.ZeldaAPI.model.Location;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
@@ -70,7 +73,8 @@ public class LocationController {
 
     @Operation(summary = "Insert a new location")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Location successfully inserted"),
+            @ApiResponse(responseCode = "200", description = "Location successfully inserted", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
             @ApiResponse(responseCode = "404", description = "Location cannot be inserted due to an error")
     })
@@ -87,7 +91,8 @@ public class LocationController {
 
     @Operation(summary = "Update an existing location")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Location successfully updated"),
+            @ApiResponse(responseCode = "200", description = "Location successfully updated", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
             @ApiResponse(responseCode = "404", description = "Location not found")
     })
@@ -104,7 +109,8 @@ public class LocationController {
 
     @Operation(summary = "Delete a location")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "202", description = "Location successfully deleted"),
+            @ApiResponse(responseCode = "202", description = "Location successfully deleted", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Location not found")
     })
     @DeleteMapping("{id}")

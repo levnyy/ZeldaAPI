@@ -2,12 +2,13 @@ package com.zelda.ZeldaAPI.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Location {
     @Id
     private Integer id_location;
-
+    @NotNull
     private String name;
 
     private String rewards;

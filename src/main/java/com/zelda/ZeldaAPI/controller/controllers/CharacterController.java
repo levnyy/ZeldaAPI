@@ -1,8 +1,11 @@
 package com.zelda.ZeldaAPI.controller.controllers;
 
 import com.zelda.ZeldaAPI.controller.service.CharacterService;
+import com.zelda.ZeldaAPI.model.Bosses;
 import com.zelda.ZeldaAPI.model.Character;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
@@ -22,7 +25,8 @@ public class CharacterController {
 
     @Operation(summary = "Find character by ID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved character"),
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved character", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Character not found")
     })
     @GetMapping("/{id}")
@@ -36,7 +40,8 @@ public class CharacterController {
 
     @Operation(summary = "Find characters by name")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved list of characters"),
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved list of characters", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Character name not found")
     })
     @GetMapping
@@ -53,7 +58,8 @@ public class CharacterController {
     }
     @Operation(summary = "Find characters by gender")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved list of characters"),
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved list of characters", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Gender not found")
     })
     @GetMapping
@@ -64,6 +70,12 @@ public class CharacterController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Gender not found");
         }
     }
+    @Operation(summary = "Find characters by race")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved list of characters", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
+            @ApiResponse(responseCode = "404", description = "Race not found")
+    })
     @GetMapping
     public Iterable<Character> findByRace(String race) {
         try {
@@ -74,7 +86,8 @@ public class CharacterController {
     }
     @Operation(summary = "Insert a new Character")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Character successfully inserted"),
+            @ApiResponse(responseCode = "200", description = "Character successfully inserted", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
             @ApiResponse(responseCode = "404", description = "Character cannot be inserted due to an error")
     })
@@ -89,7 +102,8 @@ public class CharacterController {
     }
     @Operation(summary = "Update a existing Character")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Location successfully updated"),
+            @ApiResponse(responseCode = "200", description = "Location successfully updated", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid request body"),
             @ApiResponse(responseCode = "404", description = "Location not found")
     })
@@ -104,7 +118,8 @@ public class CharacterController {
     }
     @Operation(summary = "Delete a Character")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "202", description = "Location successfully deleted"),
+            @ApiResponse(responseCode = "202", description = "Location successfully deleted", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Location not found")
     })
     @DeleteMapping("{id}")
