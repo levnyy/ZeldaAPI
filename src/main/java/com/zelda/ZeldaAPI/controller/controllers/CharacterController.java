@@ -44,7 +44,7 @@ public class CharacterController {
                     schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Character name not found")
     })
-    @GetMapping
+    @GetMapping(params = "name")
     public Iterable<Character> findByName(String name) {
         try {
             if (!name.isEmpty())
@@ -62,7 +62,7 @@ public class CharacterController {
                     schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Gender not found")
     })
-    @GetMapping
+    @GetMapping(params = "gender")
     public Iterable<Character> findByGender(String gender) {
         try {
             return characterService.findByGender(gender);
@@ -76,7 +76,7 @@ public class CharacterController {
                     schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Race not found")
     })
-    @GetMapping
+    @GetMapping(params = "race")
     public Iterable<Character> findByRace(String race) {
         try {
             return characterService.findByRace(race);

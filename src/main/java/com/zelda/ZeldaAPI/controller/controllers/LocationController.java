@@ -61,7 +61,7 @@ public class LocationController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list of locations"),
             @ApiResponse(responseCode = "404", description = "Reward not found")
     })
-    @GetMapping
+    @GetMapping(params = "reward")
     public Iterable<Location> findByReward(
             @RequestParam String reward) {
         try {
