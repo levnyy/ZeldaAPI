@@ -44,7 +44,7 @@ public class CreaturesController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved creatures"),
             @ApiResponse(responseCode = "404", description = "Creatures not found")
     })
-    @GetMapping
+    @GetMapping(params = "name")
     public Iterable<Creatures> findByName(@RequestParam String name) {
         try {
             if (!name.isEmpty())
@@ -61,7 +61,7 @@ public class CreaturesController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved creatures"),
             @ApiResponse(responseCode = "404", description = "Creatures not found")
     })
-    @GetMapping
+    @GetMapping(params = "strength")
     public Iterable<Creatures> findByStrength(Integer strength) {
         try {
             return creaturesService.findByStrength(strength);
@@ -75,7 +75,7 @@ public class CreaturesController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved creatures"),
             @ApiResponse(responseCode = "404", description = "Creatures not found")
     })
-    @GetMapping
+    @GetMapping(params = "durability")
     public Iterable<Creatures> findByDurability(Integer durability) {
         try {
             return creaturesService.findByDurability(durability);
@@ -89,7 +89,7 @@ public class CreaturesController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved creature"),
             @ApiResponse(responseCode = "404", description = "Creature not found")
     })
-    @GetMapping
+    @GetMapping(params = "location")
     public Creatures findByLocation(Location location) {
         try {
             creaturesService.findByLocation(location);

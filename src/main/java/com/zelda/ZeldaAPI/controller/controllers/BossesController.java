@@ -45,34 +45,33 @@ public Bosses findById(@PathVariable(value = "id", required = true) Integer id) 
                 schema = @Schema(implementation = Bosses.class))}),
         @ApiResponse(responseCode = "400",description = "Invalid status value", content = {@Content(mediaType = "application/json")})
 })
-@GetMapping
-    public Iterable<Bosses>findByName(String name) {
-        try {
-            if (!name.isEmpty())
-            return  bossesService.findByName(name);
-            else {
-                return bossesService.findAll();
-            }
-        }catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Boss not found");
+@GetMapping(params = "name")
+public Iterable<Bosses> findByName(@RequestParam("name") String name) {
+    try {
+        if (!name.isEmpty()) {
+            return bossesService.findByName(name);
+        } else {
+            return bossesService.findAll();
         }
+    } catch (EntityNotFoundException e) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Boss not found");
     }
+}
 
-@Operation(summary = "Find Bosses by health")
-@ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/json",
-                schema = @Schema(implementation = Bosses.class))}),
-        @ApiResponse(responseCode = "400",description = "Invalid status value", content = {@Content(mediaType = "application/json")})
-})
-@GetMapping
-    public Iterable<Bosses> findByHealth(Integer health) {
+    @Operation(summary = "Find Bosses by health")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Bosses.class))}),
+            @ApiResponse(responseCode = "400",description = "Invalid status value", content = {@Content(mediaType = "application/json")})
+    })
+    @GetMapping(params = "health")
+    public Iterable<Bosses> findByHealth(@RequestParam("health") Integer health) {
         try {
             return bossesService.findByHealth(health);
-        }catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Health not found");
         }
     }
-
 @Operation(summary = "Find Bosses by weakness")
 @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/json",
