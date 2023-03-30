@@ -22,6 +22,23 @@ public class CharacterController {
     public CharacterController(CharacterService characterService) {
         this.characterService = characterService;
     }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Will return every car in the database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Output was successfull.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Character.class))}),
+            @ApiResponse(responseCode = "409", description = "Output wasn't successfull.",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",description = "Validation failed.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Character.class))})})
+
+// Mit dieser Methode kann man alle Autos abrufen
+    public Iterable<Characters> findAll(){
+        return characterService.findAll();
+    }
 
     @Operation(summary = "Find character by ID")
     @ApiResponses(value = {

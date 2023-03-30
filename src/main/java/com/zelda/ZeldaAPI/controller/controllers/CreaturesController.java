@@ -23,6 +23,23 @@ public class CreaturesController {
     public CreaturesController(CreaturesService creaturesService) {
         this.creaturesService = creaturesService;
     }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Will return every car in the database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Output was successfull.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Creatures.class))}),
+            @ApiResponse(responseCode = "409", description = "Output wasn't successfull.",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",description = "Validation failed.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Creatures.class))})})
+
+// Mit dieser Methode kann man alle Autos abrufen
+    public Iterable<Creatures> findAll(){
+        return creaturesService.findAll();
+    }
 
     @Operation(summary = "Find creature by ID")
     @ApiResponses(value = {

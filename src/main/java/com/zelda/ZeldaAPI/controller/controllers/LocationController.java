@@ -22,6 +22,23 @@ public class LocationController {
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
     }
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Will return every car in the database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Output was successfull.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Location.class))}),
+            @ApiResponse(responseCode = "409", description = "Output wasn't successfull.",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",description = "Validation failed.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Location.class))})})
+
+// Mit dieser Methode kann man alle Autos abrufen
+    public Iterable<Location> findAll(){
+        return locationService.findAll();
+    }
     @Operation(summary = "Find location by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved location"),

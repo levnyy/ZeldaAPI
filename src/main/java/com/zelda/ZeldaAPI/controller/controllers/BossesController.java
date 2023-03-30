@@ -22,7 +22,23 @@ public class BossesController {
         this.bossesService = bossesService;
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Will return every car in the database.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Output was successfull.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Bosses.class))}),
+            @ApiResponse(responseCode = "409", description = "Output wasn't successfull.",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",description = "Validation failed.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Bosses.class))})})
 
+// Mit dieser Methode kann man alle Autos abrufen
+    public Iterable<Bosses> findAll(){
+        return bossesService.findAll();
+    }
 @Operation(summary = "Find Bosses by id")
 @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/json",
@@ -45,7 +61,7 @@ public Bosses findById(@PathVariable(value = "id", required = true) Integer id) 
                 schema = @Schema(implementation = Bosses.class))}),
         @ApiResponse(responseCode = "400",description = "Invalid status value", content = {@Content(mediaType = "application/json")})
 })
-@GetMapping(params = "name")
+@GetMapping(params = "/name")
 public Iterable<Bosses> findByName(@RequestParam("name") String name) {
     try {
         if (!name.isEmpty()) {
@@ -64,7 +80,7 @@ public Iterable<Bosses> findByName(@RequestParam("name") String name) {
                     schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "400",description = "Invalid status value", content = {@Content(mediaType = "application/json")})
     })
-    @GetMapping(params = "health")
+    @GetMapping(params = "/health")
     public Iterable<Bosses> findByHealth(@RequestParam("health") Integer health) {
         try {
             return bossesService.findByHealth(health);
@@ -78,7 +94,7 @@ public Iterable<Bosses> findByName(@RequestParam("name") String name) {
                 schema = @Schema(implementation = Bosses.class))}),
         @ApiResponse(responseCode = "400",description = "Invalid status value", content = {@Content(mediaType = "application/json")})
 })
-@GetMapping
+@GetMapping(params = "/weakness")
     public Iterable<Bosses> findByWeakness(Integer weakness) {
         try {
             return bossesService.findByWeakness(weakness);
@@ -97,7 +113,7 @@ public Iterable<Bosses> findByName(@RequestParam("name") String name) {
 @ResponseStatus(HttpStatus.OK)
     public void insert(@RequestBody @Valid Bosses bosses) {
         try {
-            bossesService.insert(bosses);
+                bossesService.insert(bosses);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item cannot be inserted");
         }
