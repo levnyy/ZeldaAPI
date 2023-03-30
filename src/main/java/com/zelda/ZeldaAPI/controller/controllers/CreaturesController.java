@@ -17,7 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 @RequestMapping("/creatures")
 @RestController
-public class    CreaturesController {
+public class CreaturesController {
     private final CreaturesService creaturesService;
 
     public CreaturesController(CreaturesService creaturesService) {
@@ -84,20 +84,6 @@ public class    CreaturesController {
         }
     }
 
-    @Operation(summary = "Find creature by location")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved creature"),
-            @ApiResponse(responseCode = "404", description = "Creature not found")
-    })
-    @GetMapping(params = "location")
-    public Creatures findByLocation(Location location) {
-        try {
-            creaturesService.findByLocation(location);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found");
-        }
-        return findByLocation(location);
-    }
     @Operation(summary = "Insert a new creature", description = "Inserts a new creature into the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Creature successfully inserted", content = {@Content(mediaType = "application/json",

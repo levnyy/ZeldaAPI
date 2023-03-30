@@ -2,7 +2,7 @@ package com.zelda.ZeldaAPI.controller.controllers;
 
 import com.zelda.ZeldaAPI.controller.service.CharacterService;
 import com.zelda.ZeldaAPI.model.Bosses;
-import com.zelda.ZeldaAPI.model.Character;
+import com.zelda.ZeldaAPI.model.Characters;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,8 +29,8 @@ public class CharacterController {
                     schema = @Schema(implementation = Bosses.class))}),
             @ApiResponse(responseCode = "404", description = "Character not found")
     })
-    @GetMapping("/{id}")
-    public Character findById(@PathVariable(value = "id", required = true) Integer id) {
+    @GetMapping("{id}")
+    public Characters findById(@PathVariable(value = "id", required = true) Integer id) {
         try {
             return characterService.findById(id);
         } catch (EntityNotFoundException e) {
@@ -45,7 +45,7 @@ public class CharacterController {
             @ApiResponse(responseCode = "404", description = "Character name not found")
     })
     @GetMapping(params = "name")
-    public Iterable<Character> findByName(String name) {
+    public Iterable<Characters> findByName(String name) {
         try {
             if (!name.isEmpty())
                 return characterService.findByName(name);
@@ -63,7 +63,7 @@ public class CharacterController {
             @ApiResponse(responseCode = "404", description = "Gender not found")
     })
     @GetMapping(params = "gender")
-    public Iterable<Character> findByGender(String gender) {
+    public Iterable<Characters> findByGender(String gender) {
         try {
             return characterService.findByGender(gender);
         } catch (EntityNotFoundException e) {
@@ -77,7 +77,7 @@ public class CharacterController {
             @ApiResponse(responseCode = "404", description = "Race not found")
     })
     @GetMapping(params = "race")
-    public Iterable<Character> findByRace(String race) {
+    public Iterable<Characters> findByRace(String race) {
         try {
             return characterService.findByRace(race);
         } catch (EntityNotFoundException e) {
@@ -93,9 +93,9 @@ public class CharacterController {
     })
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void insert(@RequestBody @Valid Character character) {
+    public void insert(@RequestBody @Valid Characters characters) {
         try {
-            characterService.insert(character);
+            characterService.insert(characters);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item cannot be inserted");
         }
@@ -109,9 +109,9 @@ public class CharacterController {
     })
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody @Valid Character character) {
+    public void update(@RequestBody @Valid Characters characters) {
         try {
-            characterService.update(character);
+            characterService.update(characters);
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Update cannot be completed");
         }

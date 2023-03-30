@@ -12,11 +12,11 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     public Iterable<User> findAll() {
         return userRepository.findAll();
@@ -25,13 +25,17 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(EntityNotFoundException::new);
     }
+    public User findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        return userRepository.findByUsername(username);
+    }
     public User signUp(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
     public void update (User user){
-        userRepository.save(user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
     public void deleteById (Integer id){
         userRepository.deleteById(id);

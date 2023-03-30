@@ -18,8 +18,6 @@ public class Bosses {
 
     private String weakness;
 
-    private String habitat;
-
     public Integer getId_bosses() {
         return id_bosses;
     }
@@ -43,11 +41,5 @@ public class Bosses {
     }
     public void setWeakness(String weakness) {
         this.weakness = weakness;
-    }
-    public String getHabitat() {
-        return habitat;
-    }
-    public void setHabitat(String habitat) {
-        this.habitat = habitat;
     }
 }
