@@ -17,7 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 @RequestMapping("/creatures")
 @RestController
-public class CreaturesController {
+public class    CreaturesController {
     private final CreaturesService creaturesService;
 
     public CreaturesController(CreaturesService creaturesService) {
